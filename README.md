@@ -1,1 +1,40 @@
-# Exploring-Colours-in-Optical-See-Through-Augmented-Reality
+# Exploring Colours in Optical See-Through Augmented Reality
+
+## Problem
+Accurate colour characterisation in Optical See-Through (OST) Augmented Reality (AR) remains a challenge.  
+Unlike opaque displays, OST AR devices (e.g. Microsoft HoloLens 2) blend virtual content with real-world backgrounds, leading to unpredictability.
+
+## Contribution
+- Benchmarked multiple colour characterisation models for OST AR:
+  - Linear RGB-to-XYZ matrix with LUT correction
+  - Polynomial regression (CIELAB-to-RGB)
+- Developed a bidirectional deep learning model (forward + inverse)
+- Conducted **psychophysical experiments** (2 alternate forced choice, and just noticeable difference thresholds) to compare model predictions with human perception.
+- Built custom **Unity + MRTK3 applications** for display control, experiment design, and data collection.
+- Created a novel dataset of >5000 images captured through HL2 optics under varied real-world background conditions.
+
+## Method
+<!--![Pipeline diagram – INSERT FIGURE HERE]-->
+
+- **Spectroradiometric characterisation** with Konica Minolta CS2000 for physical ground-truth data.  
+- **Data-driven modelling**: trained neural networks with combined device+background input.  
+- **Psychophysics**: measured perceptual thresholds and model alignment with human judgments.  
+- **Validation**: compared ∆E00 metrics vs. perceptual preference.
+
+## Results
+<!--![Key quantitative results – e.g., table of ∆E00 values]-->
+
+- Matrix + LUT model: lowest mean error (∆E00 ≈ 1.0).  
+- Polynomial regression: overfit to training data, validation error ≈ 9.7.  
+- Deep learning forward model: ∆E00 ≈ 0.08 (below JND threshold).  
+- **Human observers preferred more saturated colours**, diverging from purely quantitative metrics.
+
+<!--![Psychophysical experiment figure – INSERT FIGURE HERE]-->
+
+## How to Run
+```bash
+git clone <repo_url>
+cd project
+pip install -r requirements.txt
+# Example run for demo
+python demo_forward_model.py --input data/sample.png --background data/bg.png
